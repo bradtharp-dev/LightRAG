@@ -98,4 +98,9 @@ ENV INPUT_DIR=/app/data/inputs
 # Expose API port
 EXPOSE 9621
 
-ENTRYPOINT ["python", "-m", "lightrag.api.lightrag_server"]
+# Copy entrypoint script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
+# Use entrypoint to generate .env and start server
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
